@@ -32,3 +32,10 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+VR_AnyballEditor/[Ll]ibrary/
+VR_AnyballEditor/[Tt]emp/
+VR_AnyballEditor/[Oo]bj/
+VR_AnyballEditor/[Bb]uild/
+VR_AnyballEditor/[Bb]uilds/
+[Bb]uilds
