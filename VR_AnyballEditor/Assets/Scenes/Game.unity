@@ -274,7 +274,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4012294053675166, guid: bc201fe64e64742f6bdcd70e5dd271cb, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4012294053675166, guid: bc201fe64e64742f6bdcd70e5dd271cb, type: 2}
       propertyPath: m_LocalPosition.z
@@ -539,6 +539,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myAnyLevelObjectScript: {fileID: 0}
+  myHoldingHand: {fileID: 0}
+  myScaling_Object: {fileID: 0}
+  myScaling_InitLocalPosition: {x: 0, y: 0, z: 0}
+  myScaling_Default: {x: 0, y: 0, z: 0}
 --- !u!114 &1734721884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -573,7 +577,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1762686259}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 1, z: 0}
+  m_LocalPosition: {x: 0.5, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -647,6 +651,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myAnyLevelObjectScript: {fileID: 0}
+  myHoldingHand: {fileID: 0}
+  myScaling_Object: {fileID: 0}
+  myScaling_InitLocalPosition: {x: 0, y: 0, z: 0}
+  myScaling_Default: {x: 0, y: 0, z: 0}
 --- !u!114 &1999298050
 MonoBehaviour:
   m_ObjectHideFlags: 0

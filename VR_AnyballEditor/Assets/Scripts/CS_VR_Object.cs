@@ -67,6 +67,8 @@ public class CS_VR_Object : MonoBehaviour {
 	//fire every frame as long as a hand is next to it
 	//hand = mouse / VR controller
 	void HandHoverUpdate (Hand g_hand) {
+		if (myHoldingHand != null)
+			return;
 		//mouse click or trigger
 		if (g_hand.GetStandardInteractionButtonDown ()) {
 			Debug.Log ("player clicked on me!");
@@ -75,7 +77,11 @@ public class CS_VR_Object : MonoBehaviour {
 				g_hand.DetachObject (g_hand.currentAttachedObject);
 			}
 
+			Quaternion t_lastRotation = this.transform.rotation;
+
 			g_hand.AttachObject (this.gameObject);
+
+			this.transform.rotation = t_lastRotation;
 
 			myHoldingHand = g_hand;
 
