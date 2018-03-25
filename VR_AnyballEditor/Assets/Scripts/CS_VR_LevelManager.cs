@@ -19,6 +19,9 @@ public class CS_VR_LevelManager : MonoBehaviour {
 	[SerializeField] Transform myInvisibleParent;
 	private Dictionary<string,GameObject> myDictionary = new Dictionary<string, GameObject> ();
 
+	[SerializeField] Material myEmissionMaterial;
+	public Material EmissionMaterial { get { return myEmissionMaterial; } }
+
 	void Awake () {
 		if (instance != null && instance != this) {
 			Destroy(this.gameObject);

@@ -12,6 +12,11 @@ public class CS_VR_Shelf_Object : MonoBehaviour {
 	private GameObject myPrefab;
 	public GameObject Prefab { set { myPrefab = value; } get { return myPrefab; } }
 
+	private Material myDefaultMaterial;
+
+	void Awake () {
+		myDefaultMaterial = this.GetComponent<Renderer> ().material;
+	}
 	// Use this for initialization
 	void Start () {
 		
@@ -20,6 +25,14 @@ public class CS_VR_Shelf_Object : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	void OnHandHoverBegin (Hand g_hand) {
+		this.GetComponent<Renderer> ().material = CS_VR_LevelManager.Instance.EmissionMaterial;
+	}
+
+	void OnHandHoverEnd (Hand g_hand) {
+		this.GetComponent<Renderer> ().material = myDefaultMaterial;
 	}
 
 	void HandHoverUpdate (Hand g_hand) {
@@ -42,7 +55,10 @@ public class CS_VR_Shelf_Object : MonoBehaviour {
 				g_hand.DetachObject (g_hand.currentAttachedObject);
 			}
 
-			g_hand.AttachObject (t_gameObject);
+
+			t_gameObject.transform.position = this.transform.position;
+			t_gameObject.transform.rotation = this.transform.rotation;
+			t_gameObject.GetComponent<CS_VR_Object> ().HandHoverUpdate (g_hand);
 		}
 	}
 
