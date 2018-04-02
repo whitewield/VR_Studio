@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1214a798477174b888eb542e6e2ce3d7, type: 3}
+  m_Name: JJIL_SNES
+  m_EditorClassIdentifier: 
+  myMapType: 5
+  myAxes:
+  - joystickAxis: 0
+    axisNumber: 4
+    invert: 0
+  - joystickAxis: 1
+    axisNumber: 5
+    invert: 1
+  myButtons:
+  - joystickButton: 0
+    buttonNumber: 2
+  - joystickButton: 1
+    buttonNumber: 1
+  - joystickButton: 2
+    buttonNumber: 3
+  - joystickButton: 3
+    buttonNumber: 0
+  - joystickButton: 4
+    buttonNumber: 4
+  - joystickButton: 5
+    buttonNumber: 5
+  - joystickButton: 6
+    buttonNumber: 8
+  - joystickButton: 7
+    buttonNumber: 9

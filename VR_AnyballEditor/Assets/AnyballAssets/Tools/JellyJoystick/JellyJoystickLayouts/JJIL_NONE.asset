@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1214a798477174b888eb542e6e2ce3d7, type: 3}
+  m_Name: JJIL_NONE
+  m_EditorClassIdentifier: 
+  myMapType: 0
+  myAxises:
+  - joystickAxis: 0
+    axisNumber: 1
+    invert: 0
+  - joystickAxis: 1
+    axisNumber: 2
+    invert: 1
+  - joystickAxis: 2
+    axisNumber: 3
+    invert: 0
+  - joystickAxis: 3
+    axisNumber: 4
+    invert: 1
+  - joystickAxis: 4
+    axisNumber: 5
+    invert: 0
+  - joystickAxis: 5
+    axisNumber: 6
+    invert: 0
+  myButtons: []

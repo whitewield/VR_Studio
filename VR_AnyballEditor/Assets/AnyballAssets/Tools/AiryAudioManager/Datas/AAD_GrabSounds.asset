@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51fffa709c363444fbd9a971338a4e42, type: 3}
+  m_Name: AAD_GrabSounds
+  m_EditorClassIdentifier: 
+  myName: GrabSounds
+  myAudioClips:
+  - {fileID: 8300000, guid: eaef7abc8544146d48272e8f0f829431, type: 3}
+  - {fileID: 8300000, guid: eac1cc9e8adfc40dab7178e9a5b083a8, type: 3}
+  - {fileID: 8300000, guid: d97be92ebfea24b61a63eeedd11554c1, type: 3}
+  - {fileID: 8300000, guid: bbf0f0f3351c142ee96088c889cf2d75, type: 3}
+  - {fileID: 8300000, guid: ac950586536c94cd5b3e197c52a5c487, type: 3}
+  myVolume: 1.4
+  isRandomVolume: 0
+  myVolumeRange: {x: 0.9, y: 1.1}
+  myPitch: 1
+  isRandomPitch: 1
+  myPitchRange: {x: 0.8, y: 1.2}

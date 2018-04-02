@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1191223246432938}
+  m_IsPrefabParent: 1
+--- !u!1 &1191223246432938
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4285143487207796}
+  - component: {fileID: 114287625268571310}
+  m_Layer: 0
+  m_Name: Rule_Soccer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4285143487207796
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1191223246432938}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.816743, y: 4, z: 1.1390207}
+  m_LocalScale: {x: 3, y: 1.5, z: 1.5}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114287625268571310
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1191223246432938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a1a36107b074e6291785429aae1138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myRuleInfo:
+    isTeamBased: 1
+    myScoreType: 1
+  myBallTypeCount: 4
+  myBallDistanceToCenter: 5
+  myGoalDistanceToCenter: 10
+  myGoalSize: 4
+  mySpecialGoalSize:
+  - prefab: {fileID: 1854209973229292, guid: c09b7deddcd7f459eaa6a6ce89545339, type: 2}
+    size: 1
+  - prefab: {fileID: 1726226498270686, guid: 18a5646f68e464e9795f3eddbd419ac9, type: 2}
+    size: 1.2
+  - prefab: {fileID: 1726226498270686, guid: 18a5646f68e464e9795f3eddbd419ac9, type: 2}
+    size: 1.2

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51fffa709c363444fbd9a971338a4e42, type: 3}
+  m_Name: AAD_FootStepSounds
+  m_EditorClassIdentifier: 
+  myName: FootStepSounds
+  myAudioClips:
+  - {fileID: 8300000, guid: 733e40a5216ba41889a241df8e3879c7, type: 3}
+  - {fileID: 8300000, guid: d349b5a03e3e243a9aef83861d69c922, type: 3}
+  - {fileID: 8300000, guid: 60cf6958ee1954fa2a72e79e11415f19, type: 3}
+  - {fileID: 8300000, guid: 80c0b0a7ec4a348a69bee50f4b319a14, type: 3}
+  - {fileID: 8300000, guid: 5048e5d05398947e98e8f735b23db9a0, type: 3}
+  - {fileID: 8300000, guid: 27aee5e5654cb47368f4419b6676ac32, type: 3}
+  myVolume: 0.6
+  isRandomVolume: 0
+  myVolumeRange: {x: 0.1, y: 0.2}
+  myPitch: 1
+  isRandomPitch: 1
+  myPitchRange: {x: 1, y: 2}

@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97d6c232778d544518f828ee7176837f, type: 3}
+  m_Name: AiryAudioBank
+  m_EditorClassIdentifier: 
+  mySnapshots:
+  - myName: None
+    mySnapshot: {fileID: 245175552642949306, guid: 582106a0367984a5e87798faf19f7073,
+      type: 2}
+  - myName: Menu
+    mySnapshot: {fileID: 24500006, guid: 582106a0367984a5e87798faf19f7073, type: 2}
+  - myName: Battle
+    mySnapshot: {fileID: 245791943496798202, guid: 582106a0367984a5e87798faf19f7073,
+      type: 2}
+  - myName: Settings
+    mySnapshot: {fileID: 245703266110179850, guid: 582106a0367984a5e87798faf19f7073,
+      type: 2}
+  myBank:
+  - {fileID: 11400000, guid: 993e5bdc7703a4dd2bbf9b5812aea337, type: 2}
+  - {fileID: 11400000, guid: de7200a251e7f48c8b2d8e6c5e300948, type: 2}
+  - {fileID: 11400000, guid: 163ffff4a769845f2b4d6fe33031bc4e, type: 2}
+  - {fileID: 11400000, guid: 4e3d96bcfcec6460c84f6bdc4ebde923, type: 2}
+  - {fileID: 11400000, guid: 1019a8e147f4b4d2fad0ba73acf91bdd, type: 2}
+  - {fileID: 11400000, guid: 5efd84d5acd5b49f497b46e02e079a6e, type: 2}
+  - {fileID: 11400000, guid: 42fbcd847a3a7462cb4e17d2c19aa0ef, type: 2}
+  - {fileID: 11400000, guid: cd92161d3e1a24fab85b3ef7b54ae4db, type: 2}

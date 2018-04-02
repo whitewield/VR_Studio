@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 265f7e0182da24709a95664fb989f5f9, type: 3}
+  m_Name: PlayerSettings
+  m_EditorClassIdentifier: 
+  myMoveForce: 120
+  myMoveDrag: 400
+  myRotateForce: 20
+  myAirDrag: 1
+  myJumpImpulse: 300
+  myJumpChargeTime: 0.2
+  myJumpChargeImpulse: 1000
+  myDashImpulse: 20
+  myDashTime: 0.2
+  myAirControlRatio: 0.2
+  myPickUpRadius: 2
+  myThrowChargeTime: 1
+  myThrowMaxYImpulse: 30
+  myThrowXZImpulseMultiplier: 2
+  myKnockedOutSqrImpulse: 400
+  myKnockedOutTime: 3
+  myLeftStickThreshold: 0.01
+  myRightStickThreshold: 0.3

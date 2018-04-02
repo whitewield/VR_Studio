@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1214a798477174b888eb542e6e2ce3d7, type: 3}
+  m_Name: JJIL_OSX_XBOX
+  m_EditorClassIdentifier: 
+  myMapType: 1
+  myAxes:
+  - joystickAxis: 0
+    axisNumber: 1
+    invert: 0
+  - joystickAxis: 1
+    axisNumber: 2
+    invert: 1
+  - joystickAxis: 2
+    axisNumber: 3
+    invert: 0
+  - joystickAxis: 3
+    axisNumber: 4
+    invert: 1
+  - joystickAxis: 4
+    axisNumber: 5
+    invert: 0
+  - joystickAxis: 5
+    axisNumber: 6
+    invert: 0
+  myButtons:
+  - joystickButton: 0
+    buttonNumber: 16
+  - joystickButton: 1
+    buttonNumber: 17
+  - joystickButton: 2
+    buttonNumber: 18
+  - joystickButton: 3
+    buttonNumber: 19
+  - joystickButton: 4
+    buttonNumber: 13
+  - joystickButton: 5
+    buttonNumber: 14
+  - joystickButton: 6
+    buttonNumber: 10
+  - joystickButton: 7
+    buttonNumber: 9
+  - joystickButton: 8
+    buttonNumber: 11
+  - joystickButton: 9
+    buttonNumber: 12
