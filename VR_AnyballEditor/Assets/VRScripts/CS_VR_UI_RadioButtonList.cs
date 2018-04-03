@@ -22,7 +22,7 @@ public class CS_VR_UI_RadioButtonList : MonoBehaviour {
 	public void Press (int g_index) {
 
 		//do method
-		myTarget.SendMessage ("SetSnappingPosition", g_index);
+		myTarget.SendMessage (myMethodName, g_index);
 
 		//update button display
 		for (int i = 0; i < myButtons.Count; i++) {

@@ -47,6 +47,57 @@ public class CS_VR_Settings : MonoBehaviour {
 		}
 	}
 
+	public float GetSnappingRotation () {
+		return mySnappingRotation;
+	}
+
+	public void SetSnappingRotation (int g_index) {
+
+		Debug.Log ("SetSnappingRotation");
+
+		switch (g_index) {
+		case 0:
+			mySnappingRotation = 0f;
+			break;
+		case 1:
+			mySnappingRotation = 22.5f;
+			break;
+		case 2:
+			mySnappingRotation = 45f;
+			break;
+		case 3:
+			mySnappingRotation = 90f;
+			break;
+		default:
+			mySnappingRotation = 0f;
+			break;
+		}
+	}
+
+	public float GetSnappingScale () {
+		return mySnappingScale;
+	}
+
+	public void SetSnappingScale (int g_index) {
+		switch (g_index) {
+		case 0:
+			mySnappingScale = 0f;
+			break;
+		case 1:
+			mySnappingScale = 0.25f;
+			break;
+		case 2:
+			mySnappingScale = 0.5f;
+			break;
+		case 3:
+			mySnappingScale = 1f;
+			break;
+		default:
+			mySnappingScale = 0f;
+			break;
+		}
+	}
+
 	// Use this for initialization
 	void Start () {
 		

@@ -14,7 +14,7 @@ public class CS_VR_Shelf : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+
 		foreach (GameObject f_prefab in myPrefabs) {
 			GameObject f_object = Instantiate (f_prefab, this.transform);
 			myObjects.Add (f_object);

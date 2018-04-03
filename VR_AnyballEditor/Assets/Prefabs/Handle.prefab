@@ -244,6 +244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDestroyable: 0
   isFreeScale: 0
+  isUseSnapping: 0
   myAnyLevelObjectScript: {fileID: 0}
   myHoldingHand: {fileID: 0}
   myScalingHand: {fileID: 0}
