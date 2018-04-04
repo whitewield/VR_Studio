@@ -27,11 +27,11 @@ public class CS_VR_Player : MonoBehaviour {
 
 
 	void OnHandHoverBegin (Hand g_hand) {
-		this.GetComponent<Renderer> ().material = CS_VR_LevelManager.Instance.EmissionMaterial;
+		myTargetRenderer.material = CS_VR_LevelManager.Instance.EmissionMaterial;
 	}
 
 	void OnHandHoverEnd (Hand g_hand) {
-		this.GetComponent<Renderer> ().material = myDefaultMaterial;
+		myTargetRenderer.material = myDefaultMaterial;
 	}
 
 	//need name space "Valve.VR.InteractionSystem"
