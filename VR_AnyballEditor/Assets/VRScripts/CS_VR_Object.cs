@@ -66,8 +66,10 @@ public class CS_VR_Object : MonoBehaviour {
 				return;
 			}
 
-			Vector3 t_handDistance = 
-				this.transform.TransformPoint (myScalingHand.transform.position - myHoldingHand.transform.position);
+			Vector3 t_handDistance = LocalVector3 (myScalingHand.transform.position - myHoldingHand.transform.position, this.transform);
+
+//			Vector3 t_handDistance = 
+//				this.transform.TransformPoint (myScalingHand.transform.position - myHoldingHand.transform.position);
 			Vector3 t_scale = Vector3.one;
 			if (isFreeScale) {
 				Vector3 t_deltaPos = t_handDistance - myScaling_InitHandDistance;
@@ -165,8 +167,10 @@ public class CS_VR_Object : MonoBehaviour {
 					onScale = true;
 					Debug.Log ("true" + myScalingHand.currentAttachedObject);
 
-					myScaling_InitHandDistance = 
-						this.transform.TransformPoint (myScalingHand.transform.position - myHoldingHand.transform.position);
+//					myScaling_InitHandDistance = 
+//						this.transform.TransformPoint (myScalingHand.transform.position - myHoldingHand.transform.position);
+
+					myScaling_InitHandDistance = LocalVector3 (myScalingHand.transform.position - myHoldingHand.transform.position, this.transform);
 
 					myScaling_Default = this.transform.localScale;
 
@@ -256,12 +260,12 @@ public class CS_VR_Object : MonoBehaviour {
 		Destroy (this.gameObject);
 	}
 
-//	private Vector3 LocalVector3 (Vector3 g_original, Transform g_localTransform) {
-//		return new Vector3 (
-//			Mathf.Abs (Vector3.Dot (g_original, g_localTransform.right)),
-//			Mathf.Abs (Vector3.Dot (g_original, g_localTransform.up)),
-//			Mathf.Abs (Vector3.Dot (g_original, g_localTransform.forward))
-//		);
-//
-//	}
+	private Vector3 LocalVector3 (Vector3 g_original, Transform g_localTransform) {
+		return new Vector3 (
+			Mathf.Abs (Vector3.Dot (g_original, g_localTransform.right)),
+			Mathf.Abs (Vector3.Dot (g_original, g_localTransform.up)),
+			Mathf.Abs (Vector3.Dot (g_original, g_localTransform.forward))
+		);
+
+	}
 }
