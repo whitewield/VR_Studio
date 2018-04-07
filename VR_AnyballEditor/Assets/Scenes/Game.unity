@@ -177,7 +177,7 @@ Transform:
   m_PrefabInternal: {fileID: 85638216}
 --- !u!4 &434799319 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 4012294053675166, guid: bc201fe64e64742f6bdcd70e5dd271cb,
+  m_PrefabParentObject: {fileID: 4224013202629720, guid: bc201fe64e64742f6bdcd70e5dd271cb,
     type: 2}
   m_PrefabInternal: {fileID: 1859685248}
 --- !u!1 &691961831
@@ -596,6 +596,7 @@ MonoBehaviour:
   myAnyLevelObjectScript: {fileID: 0}
   myHoldingHand: {fileID: 0}
   myScalingHand: {fileID: 0}
+  myRenderer: {fileID: 0}
 --- !u!114 &1734721884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -976,35 +977,35 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4012294053675166, guid: bc201fe64e64742f6bdcd70e5dd271cb, type: 2}
+    - target: {fileID: 4224013202629720, guid: bc201fe64e64742f6bdcd70e5dd271cb, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4012294053675166, guid: bc201fe64e64742f6bdcd70e5dd271cb, type: 2}
+    - target: {fileID: 4224013202629720, guid: bc201fe64e64742f6bdcd70e5dd271cb, type: 2}
       propertyPath: m_LocalPosition.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4012294053675166, guid: bc201fe64e64742f6bdcd70e5dd271cb, type: 2}
+    - target: {fileID: 4224013202629720, guid: bc201fe64e64742f6bdcd70e5dd271cb, type: 2}
       propertyPath: m_LocalPosition.z
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 4012294053675166, guid: bc201fe64e64742f6bdcd70e5dd271cb, type: 2}
+    - target: {fileID: 4224013202629720, guid: bc201fe64e64742f6bdcd70e5dd271cb, type: 2}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4012294053675166, guid: bc201fe64e64742f6bdcd70e5dd271cb, type: 2}
+    - target: {fileID: 4224013202629720, guid: bc201fe64e64742f6bdcd70e5dd271cb, type: 2}
       propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4012294053675166, guid: bc201fe64e64742f6bdcd70e5dd271cb, type: 2}
+    - target: {fileID: 4224013202629720, guid: bc201fe64e64742f6bdcd70e5dd271cb, type: 2}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4012294053675166, guid: bc201fe64e64742f6bdcd70e5dd271cb, type: 2}
+    - target: {fileID: 4224013202629720, guid: bc201fe64e64742f6bdcd70e5dd271cb, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4012294053675166, guid: bc201fe64e64742f6bdcd70e5dd271cb, type: 2}
+    - target: {fileID: 4224013202629720, guid: bc201fe64e64742f6bdcd70e5dd271cb, type: 2}
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
@@ -1048,6 +1049,7 @@ MonoBehaviour:
   myAnyLevelObjectScript: {fileID: 0}
   myHoldingHand: {fileID: 0}
   myScalingHand: {fileID: 0}
+  myRenderer: {fileID: 0}
 --- !u!114 &1999298050
 MonoBehaviour:
   m_ObjectHideFlags: 0

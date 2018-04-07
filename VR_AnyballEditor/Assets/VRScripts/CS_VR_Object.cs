@@ -22,14 +22,16 @@ public class CS_VR_Object : MonoBehaviour {
 	private Vector3 myScaling_InitHandDistance;
 	private Vector3 myScaling_Default;
 
+	[SerializeField] Renderer myRenderer;
 	private Material myDefaultMaterial;
 
-	private Vector3 myRealLocalPosition;
-	private Quaternion myRealLocalRotation;
+	private GameObject myReference;
 
 	void Awake () {
 		myAnyLevelObjectScript = this.GetComponent<CS_AnyLevelObject> ();
-		myDefaultMaterial = this.GetComponent<Renderer> ().material;
+		if (myRenderer == null)
+			myRenderer = this.GetComponent<Renderer> (); 
+		myDefaultMaterial = myRenderer.material;
 	}
 	// Use this for initialization
 	void Start () {
@@ -38,22 +40,6 @@ public class CS_VR_Object : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		/*
-		if (myHoldingHand != null &&
-		    myScalingHand != null &&
-			(myScalingHand.currentAttachedObject == null ||
-				myScalingHand.currentAttachedObject.GetComponent<CS_AnyLevelObject>() == null) &&
-		    myScalingHand.GetStandardInteractionButtonDown ()) {
-			// create scaling
-			onScale = true;
-			Debug.Log ("true" + myScalingHand.currentAttachedObject);
-
-			myScaling_InitHandDistance = LocalVector3 (myScalingHand.transform.position - myHoldingHand.transform.position, this.transform);
-
-			myScaling_Default = this.transform.localScale;
-		}
-		*/
-
 		if (onScale) {
 			if (myHoldingHand == null ||
 				myScalingHand == null ||
@@ -63,13 +49,14 @@ public class CS_VR_Object : MonoBehaviour {
 				onScale = false;
 				Debug.Log ("false");
 				myScalingHand.HoverUnlock (null);
+
+				//SnapScale (this.transform);
+
 				return;
 			}
 
 			Vector3 t_handDistance = LocalVector3 (myScalingHand.transform.position - myHoldingHand.transform.position, this.transform);
 
-//			Vector3 t_handDistance = 
-//				this.transform.TransformPoint (myScalingHand.transform.position - myHoldingHand.transform.position);
 			Vector3 t_scale = Vector3.one;
 			if (isFreeScale) {
 				Vector3 t_deltaPos = t_handDistance - myScaling_InitHandDistance;
@@ -86,34 +73,32 @@ public class CS_VR_Object : MonoBehaviour {
 					Mathf.Abs (t_scale.z)
 				);
 			}
-				
-			//snapping scale
-
-			float t_snapping = CS_VR_Settings.Instance.GetSnappingScale ();
-
-			if (isUseSnapping && t_snapping != 0) {
-				t_scale = new Vector3 (
-					t_scale.x - t_scale.x % t_snapping,
-					t_scale.y - t_scale.y % t_snapping,
-					t_scale.z - t_scale.z % t_snapping
-				);
-			}
 
 			this.transform.localScale = t_scale;
-
-
 		}
+	}
 
+	void UpdateReference () {
+		if (myReference == null || isUseSnapping == false)
+			return;
+
+		myReference.transform.position = this.transform.position;
+		myReference.transform.rotation = this.transform.rotation;
+		myReference.transform.localScale = this.transform.localScale / CS_VR_Settings.Instance.HandleScale;
+
+		SnapPosition (myReference.transform);
+		SnapRotation (myReference.transform);
+		SnapScale (myReference.transform);
 	}
 
 	void OnHandHoverBegin (Hand g_hand) {
 		if (onScale)
 			return;
-		this.GetComponent<Renderer> ().material = CS_VR_LevelManager.Instance.EmissionMaterial;
+		myRenderer.material = CS_VR_LevelManager.Instance.EmissionMaterial;
 	}
 
 	void OnHandHoverEnd (Hand g_hand) {
-		this.GetComponent<Renderer> ().material = myDefaultMaterial;
+		myRenderer.material = myDefaultMaterial;
 	}
 
 	//need name space "Valve.VR.InteractionSystem"
@@ -127,6 +112,9 @@ public class CS_VR_Object : MonoBehaviour {
 				//grab
 
 				Debug.Log ("player clicked on me!");
+
+				if (isUseSnapping)
+					myReference = CS_VR_ReferenceManager.Instance.GetIdleReference ();
 
 				if (g_hand.currentAttachedObject != null) {
 					g_hand.DetachObject (g_hand.currentAttachedObject);
@@ -147,10 +135,6 @@ public class CS_VR_Object : MonoBehaviour {
 
 				myHoldingHand.HoverLock (null);
 
-				myRealLocalPosition = this.transform.localPosition;
-
-				myRealLocalRotation = this.transform.localRotation;
-
 			} else {
 				//scale
 
@@ -161,14 +145,11 @@ public class CS_VR_Object : MonoBehaviour {
 
 					myScalingHand = myHoldingHand.otherHand;
 
-					this.GetComponent<Renderer> ().material = myDefaultMaterial;
+					myRenderer.material = myDefaultMaterial;
 
 					// create scaling
 					onScale = true;
 					Debug.Log ("true" + myScalingHand.currentAttachedObject);
-
-//					myScaling_InitHandDistance = 
-//						this.transform.TransformPoint (myScalingHand.transform.position - myHoldingHand.transform.position);
 
 					myScaling_InitHandDistance = LocalVector3 (myScalingHand.transform.position - myHoldingHand.transform.position, this.transform);
 
@@ -182,10 +163,11 @@ public class CS_VR_Object : MonoBehaviour {
 
 	void HandAttachedUpdate (Hand g_hand) {
 
-		UpdateSnappingPosition ();
+		//UpdateSnappingPosition ();
 
-		UpdateSnappingRotation ();
-		
+		//UpdateSnappingRotation ();
+		UpdateReference ();
+
 		if (g_hand.GetStandardInteractionButton () == false) {
 			Debug.Log ("player released on me!");
 			g_hand.DetachObject (this.gameObject);
@@ -196,60 +178,24 @@ public class CS_VR_Object : MonoBehaviour {
 			if (myAnyLevelObjectScript != null)
 				myAnyLevelObjectScript.enabled = true;
 
+			if (isUseSnapping) {
+				myReference.SetActive (false);
+				myReference = null;
+			}
+
+			SnapPosition (this.transform);
+			SnapRotation (this.transform);
+			SnapScale (this.transform);
 		}
-	}
-
-	private void UpdateSnappingRotation () {
-		if (isUseSnapping == false)
-			return;
-
-		float t_snapping = CS_VR_Settings.Instance.GetSnappingRotation ();
-
-		if (t_snapping == 0)
-			return;
-
-		Quaternion t_realWorldRotation = myHoldingHand.transform.rotation * myRealLocalRotation;
-
-		Quaternion t_toHandleRotation = Quaternion.Inverse (CS_VR_Settings.Instance.HandleTransform.rotation) * t_realWorldRotation;
-
-		Vector3 t_toHandleEuler = t_toHandleRotation.eulerAngles;
-
-		t_toHandleEuler = new Vector3 (
-			t_toHandleEuler.x - t_toHandleEuler.x % t_snapping,
-			t_toHandleEuler.y - t_toHandleEuler.y % t_snapping,
-			t_toHandleEuler.z - t_toHandleEuler.z % t_snapping
-		);
-
-		t_toHandleRotation = Quaternion.Euler (t_toHandleEuler);
-
-		this.transform.rotation = CS_VR_Settings.Instance.HandleTransform.rotation * t_toHandleRotation;
-	}
-
-	private void UpdateSnappingPosition () {
-		if (isUseSnapping == false)
-			return;
-
-		float t_snapping = CS_VR_Settings.Instance.GetSnappingPosition ();
-
-		if (t_snapping == 0)
-			return;
-
-		Vector3 t_realWorldPosition = myHoldingHand.transform.TransformPoint (myRealLocalPosition);
-
-		Vector3 t_toHandlePosition = CS_VR_Settings.Instance.HandleTransform.InverseTransformPoint (t_realWorldPosition);
-
-		t_toHandlePosition = new Vector3 (
-			t_toHandlePosition.x - t_toHandlePosition.x % t_snapping,
-			t_toHandlePosition.y - t_toHandlePosition.y % t_snapping,
-			t_toHandlePosition.z - t_toHandlePosition.z % t_snapping
-		);
-		
-		this.transform.position = CS_VR_Settings.Instance.HandleTransform.TransformPoint (t_toHandlePosition);
 	}
 
 	public void Delete () {
 		if (!isDestroyable)
 			return;
+
+		if (myReference != null)
+			myReference.SetActive (false);
+
 		if (myHoldingHand != null) {
 			myHoldingHand.DetachObject (myHoldingHand.currentAttachedObject);
 			myHoldingHand.HoverUnlock (null);
@@ -258,6 +204,79 @@ public class CS_VR_Object : MonoBehaviour {
 			myScalingHand.HoverUnlock (null);
 		}
 		Destroy (this.gameObject);
+	}
+
+	private void SnapPosition (Transform g_transform) {
+		if (isUseSnapping == false)
+			return;
+
+		float t_snapping = CS_VR_Settings.Instance.GetSnappingPosition ();
+
+		if (t_snapping == 0)
+			return;
+
+		Vector3 t_position = g_transform.localPosition;
+
+		Vector3 t_positionTimes = new Vector3 (
+			Mathf.Round (t_position.x / t_snapping), 
+			Mathf.Round (t_position.y / t_snapping), 
+			Mathf.Round (t_position.z / t_snapping)
+		);
+
+		t_position = t_positionTimes * t_snapping;
+
+		g_transform.localPosition = t_position;
+		//g_transform.localPosition = Vector3.Lerp(g_transform.localPosition, t_position, Time.deltaTime * CS_VR_Settings.Instance.SnappingSpeed);
+	}
+
+	private void SnapRotation (Transform g_transform) {
+		if (isUseSnapping == false)
+			return;
+
+		float t_snapping = CS_VR_Settings.Instance.GetSnappingRotation ();
+
+		if (t_snapping == 0)
+			return;
+
+		Vector3 t_euler = g_transform.localRotation.eulerAngles;
+
+		Vector3 t_eulerTimes = new Vector3 (
+			Mathf.Round (t_euler.x / t_snapping), 
+			Mathf.Round (t_euler.y / t_snapping), 
+			Mathf.Round (t_euler.z / t_snapping)
+		);
+
+		t_euler = t_eulerTimes * t_snapping;
+
+		g_transform.localRotation = Quaternion.Euler (t_euler);
+		//g_transform.localRotation = Quaternion.Lerp(g_transform.localRotation, Quaternion.Euler (t_euler), Time.deltaTime * CS_VR_Settings.Instance.SnappingSpeed);
+	}
+
+	private void SnapScale (Transform g_transform) {
+		if (isUseSnapping == false)
+			return;
+
+		float t_snapping = CS_VR_Settings.Instance.GetSnappingScale ();
+
+		if (t_snapping == 0)
+			return;
+		
+		Vector3 t_scale = g_transform.localScale;
+
+		Vector3 t_scaleTimes = new Vector3 (
+			                       Mathf.Round (t_scale.x / t_snapping), 
+			                       Mathf.Round (t_scale.y / t_snapping), 
+			                       Mathf.Round (t_scale.z / t_snapping)
+		                       );
+
+		t_scaleTimes.x = Mathf.Clamp (t_scaleTimes.x, 1, t_scaleTimes.x);
+		t_scaleTimes.y = Mathf.Clamp (t_scaleTimes.y, 1, t_scaleTimes.y);
+		t_scaleTimes.z = Mathf.Clamp (t_scaleTimes.z, 1, t_scaleTimes.z);
+
+		t_scale = t_scaleTimes * t_snapping;
+
+		g_transform.localScale = t_scale;
+		//g_transform.localScale = Vector3.Lerp(g_transform.localScale, t_scale, Time.deltaTime * CS_VR_Settings.Instance.SnappingSpeed);
 	}
 
 	private Vector3 LocalVector3 (Vector3 g_original, Transform g_localTransform) {

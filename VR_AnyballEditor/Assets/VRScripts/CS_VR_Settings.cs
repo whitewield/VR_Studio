@@ -15,6 +15,9 @@ public class CS_VR_Settings : MonoBehaviour {
 	private float mySnappingScale;
 	private float mySnappingRotation;
 
+	[SerializeField] float mySnappingSpeed = 10;
+	public float SnappingSpeed { get { return mySnappingSpeed; } }
+
 	void Awake () {
 		if (instance != null && instance != this) {
 			Destroy(this.gameObject);
