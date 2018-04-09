@@ -11,13 +11,15 @@ public class CS_VR_Player : MonoBehaviour {
 
 	private Hand myHoldingHand;
 
-	private Quaternion myRotation;
+	private Quaternion myLocalRotation;
 
 	[SerializeField] Renderer myTargetRenderer;
 	private Material myDefaultMaterial;
 
 	void Awake () {
 		myDefaultMaterial = myTargetRenderer.material;
+
+		myLocalRotation = this.transform.localRotation;
 	}
 
 	// Use this for initialization
@@ -25,6 +27,9 @@ public class CS_VR_Player : MonoBehaviour {
 		
 	}
 
+	void Update () {
+		this.transform.rotation = CS_VR_Settings.Instance.HandleTransform.rotation * myLocalRotation;
+	}
 
 	void OnHandHoverBegin (Hand g_hand) {
 		myTargetRenderer.material = CS_VR_LevelManager.Instance.EmissionMaterial;
@@ -60,14 +65,12 @@ public class CS_VR_Player : MonoBehaviour {
 
 			myHoldingHand.HoverLock (null);
 
-			myRotation = this.transform.rotation;
-
 		}
 	}
 
 	void HandAttachedUpdate (Hand g_hand) {
 
-		UpdateFixedRotation ();
+//		UpdateFixedRotation ();
 		
 		if (g_hand.GetStandardInteractionButton () == false) {
 			Debug.Log ("player released on me!");
@@ -80,7 +83,7 @@ public class CS_VR_Player : MonoBehaviour {
 	}
 
 	private void UpdateFixedRotation () {
-		this.transform.rotation = myRotation;
+		this.transform.localRotation = myLocalRotation;
 	}
 
 }

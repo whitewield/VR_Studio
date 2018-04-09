@@ -108,6 +108,8 @@ public class CS_VR_Settings : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (Input.GetKeyDown (KeyCode.R)) {
+			UnityEngine.SceneManagement.SceneManager.LoadScene ("Game");
+		}
 	}
 }
