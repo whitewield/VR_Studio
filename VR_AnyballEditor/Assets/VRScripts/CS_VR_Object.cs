@@ -92,6 +92,10 @@ public class CS_VR_Object : MonoBehaviour {
 	}
 
 	void OnHandHoverBegin (Hand g_hand) {
+		
+		if (CS_VR_Settings.Instance.GetSelectionMode () == CS_VR_Settings.SelectionMode.Scene)
+			return;
+
 		if (onScale)
 			return;
 		myRenderer.material = CS_VR_LevelManager.Instance.EmissionMaterial;
@@ -105,6 +109,10 @@ public class CS_VR_Object : MonoBehaviour {
 	//fire every frame as long as a hand is next to it
 	//hand = mouse / VR controller
 	public void HandHoverUpdate (Hand g_hand) {
+		
+		if (CS_VR_Settings.Instance.GetSelectionMode () == CS_VR_Settings.SelectionMode.Scene)
+			return;
+
 		//mouse click or trigger
 		if (g_hand.GetStandardInteractionButtonDown ()) {
 			if (myHoldingHand == null) {
@@ -168,7 +176,8 @@ public class CS_VR_Object : MonoBehaviour {
 		//UpdateSnappingRotation ();
 		UpdateReference ();
 
-		if (g_hand.GetStandardInteractionButton () == false) {
+		if (CS_VR_Settings.Instance.GetSelectionMode () == CS_VR_Settings.SelectionMode.Scene ||
+			g_hand.GetStandardInteractionButton () == false) {
 			Debug.Log ("player released on me!");
 			g_hand.DetachObject (this.gameObject);
 

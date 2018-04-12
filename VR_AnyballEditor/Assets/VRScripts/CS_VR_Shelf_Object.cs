@@ -28,6 +28,9 @@ public class CS_VR_Shelf_Object : MonoBehaviour {
 	}
 
 	void OnHandHoverBegin (Hand g_hand) {
+		if (CS_VR_Settings.Instance.GetSelectionMode () == CS_VR_Settings.SelectionMode.Scene)
+			return;
+
 		this.GetComponent<Renderer> ().material = CS_VR_LevelManager.Instance.EmissionMaterial;
 	}
 
@@ -36,6 +39,10 @@ public class CS_VR_Shelf_Object : MonoBehaviour {
 	}
 
 	void HandHoverUpdate (Hand g_hand) {
+		
+		if (CS_VR_Settings.Instance.GetSelectionMode () == CS_VR_Settings.SelectionMode.Scene)
+			return;
+
 		//mouse click or trigger
 		if (g_hand.GetStandardInteractionButtonDown ()) {
 			Debug.Log ("player clicked on me!");

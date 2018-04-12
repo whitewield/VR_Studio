@@ -11,6 +11,12 @@ public class CS_VR_Settings : MonoBehaviour {
 	public float HandleScale { get { return myHandleTransform.localScale.x; } }
 	public Transform HandleTransform { get { return myHandleTransform; } }
 
+	public enum SelectionMode {
+		Scene,
+		Object,
+	}
+
+	private SelectionMode mySelectionMode;
 	private float mySnappingPosition;
 	private float mySnappingScale;
 	private float mySnappingRotation;
@@ -24,6 +30,14 @@ public class CS_VR_Settings : MonoBehaviour {
 		} else {
 			instance = this;
 		}
+	}
+
+	public SelectionMode GetSelectionMode () {
+		return mySelectionMode;
+	}
+
+	public void SetSelectionMode (int g_index) {
+		mySelectionMode = (SelectionMode)g_index;
 	}
 
 	public float GetSnappingPosition () {
@@ -56,7 +70,7 @@ public class CS_VR_Settings : MonoBehaviour {
 
 	public void SetSnappingRotation (int g_index) {
 
-		Debug.Log ("SetSnappingRotation");
+//		Debug.Log ("SetSnappingRotation");
 
 		switch (g_index) {
 		case 0:
@@ -87,13 +101,13 @@ public class CS_VR_Settings : MonoBehaviour {
 			mySnappingScale = 0f;
 			break;
 		case 1:
-			mySnappingScale = 0.25f;
-			break;
-		case 2:
 			mySnappingScale = 0.5f;
 			break;
-		case 3:
+		case 2:
 			mySnappingScale = 1f;
+			break;
+		case 3:
+			mySnappingScale = 2f;
 			break;
 		default:
 			mySnappingScale = 0f;
