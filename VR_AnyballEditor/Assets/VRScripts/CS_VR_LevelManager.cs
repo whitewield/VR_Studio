@@ -82,6 +82,15 @@ public class CS_VR_LevelManager : MonoBehaviour {
 	public void OnButtonSave () {
 		myLevel = StoreSceneToLevel ();
 		Debug.Log (myLevel.anyObjects.Length);
+		CS_AnyLevelSave.DeleteFile (myFileName);
+		myFileName = System.DateTime.UtcNow.ToString ("HH:mm-dd-MMMM-yyyy");
+		CS_AnyLevelSave.SaveFile (GetFileName (), myLevel);
+	}
+
+	public void OnButtonSaveAs () {
+		myLevel = StoreSceneToLevel ();
+		Debug.Log (myLevel.anyObjects.Length);
+		myFileName = System.DateTime.UtcNow.ToString ("HH:mm-dd-MMMM-yyyy");
 		CS_AnyLevelSave.SaveFile (GetFileName (), myLevel);
 	}
 

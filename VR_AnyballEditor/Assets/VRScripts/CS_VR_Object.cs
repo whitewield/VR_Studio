@@ -55,7 +55,7 @@ public class CS_VR_Object : MonoBehaviour {
 				return;
 			}
 
-			Vector3 t_handDistance = LocalVector3 (myScalingHand.transform.position - myHoldingHand.transform.position, this.transform);
+			Vector3 t_handDistance = CS_VR_Global.LocalVector3 (myScalingHand.transform.position - myHoldingHand.transform.position, this.transform);
 
 			Vector3 t_scale = Vector3.one;
 			if (isFreeScale) {
@@ -159,7 +159,7 @@ public class CS_VR_Object : MonoBehaviour {
 					onScale = true;
 					Debug.Log ("true" + myScalingHand.currentAttachedObject);
 
-					myScaling_InitHandDistance = LocalVector3 (myScalingHand.transform.position - myHoldingHand.transform.position, this.transform);
+					myScaling_InitHandDistance = CS_VR_Global.LocalVector3 (myScalingHand.transform.position - myHoldingHand.transform.position, this.transform);
 
 					myScaling_Default = this.transform.localScale;
 
@@ -184,6 +184,11 @@ public class CS_VR_Object : MonoBehaviour {
 			myHoldingHand.HoverUnlock (null);
 			myHoldingHand = null;
 
+			if (myScalingHand != null) {
+				myScalingHand.HoverUnlock (null);
+				myScalingHand = null;
+			}
+
 			if (myAnyLevelObjectScript != null)
 				myAnyLevelObjectScript.enabled = true;
 
@@ -200,6 +205,9 @@ public class CS_VR_Object : MonoBehaviour {
 
 	public void Delete () {
 		if (!isDestroyable)
+			return;
+
+		if (myHoldingHand == null)
 			return;
 
 		if (myReference != null)
@@ -288,12 +296,4 @@ public class CS_VR_Object : MonoBehaviour {
 		//g_transform.localScale = Vector3.Lerp(g_transform.localScale, t_scale, Time.deltaTime * CS_VR_Settings.Instance.SnappingSpeed);
 	}
 
-	private Vector3 LocalVector3 (Vector3 g_original, Transform g_localTransform) {
-		return new Vector3 (
-			Mathf.Abs (Vector3.Dot (g_original, g_localTransform.right)),
-			Mathf.Abs (Vector3.Dot (g_original, g_localTransform.up)),
-			Mathf.Abs (Vector3.Dot (g_original, g_localTransform.forward))
-		);
-
-	}
 }
