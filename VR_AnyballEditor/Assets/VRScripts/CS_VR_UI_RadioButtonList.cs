@@ -33,10 +33,10 @@ public class CS_VR_UI_RadioButtonList : MonoBehaviour {
 		}
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
+//	// Update is called once per frame
+//	void Update () {
+//		
+//	}
+//
 
 }

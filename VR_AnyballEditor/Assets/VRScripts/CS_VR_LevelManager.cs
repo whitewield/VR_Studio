@@ -62,36 +62,39 @@ public class CS_VR_LevelManager : MonoBehaviour {
 		//				}
 	}
 
-	public void OnButtonLoad () {
+	public string OnButtonLoad () {
 		myLevel = CS_AnyLevelSave.LoadFile (GetFileName ());
 		if (myLevel != null) {
 			LoadLevelToScene ();
 		}
+		return myFileName;
 	}
 
-	public void OnButtonDelete () {
+	public string OnButtonDelete () {
 		myLevel = null;
 		ClearScene ();
 
 		CS_AnyLevelSave.DeleteFile (GetFileName ());
 
 		myFileName = FILENAME_DEFAULT;
-		//				myInputField_FileName.text = FILENAME_DEFAULT;
+		return myFileName;
 	}
 
-	public void OnButtonSave () {
+	public string OnButtonSave () {
 		myLevel = StoreSceneToLevel ();
 		Debug.Log (myLevel.anyObjects.Length);
 		CS_AnyLevelSave.DeleteFile (myFileName);
-		myFileName = System.DateTime.UtcNow.ToString ("HH:mm-dd-MMMM-yyyy");
+		myFileName = System.DateTime.UtcNow.ToString ("s");
 		CS_AnyLevelSave.SaveFile (GetFileName (), myLevel);
+		return myFileName;
 	}
 
-	public void OnButtonSaveAs () {
+	public string OnButtonSaveAs () {
 		myLevel = StoreSceneToLevel ();
 		Debug.Log (myLevel.anyObjects.Length);
-		myFileName = System.DateTime.UtcNow.ToString ("HH:mm-dd-MMMM-yyyy");
+		myFileName = System.DateTime.UtcNow.ToString ("s");
 		CS_AnyLevelSave.SaveFile (GetFileName (), myLevel);
+		return myFileName;
 	}
 
 	private void ClearScene () {
@@ -160,8 +163,8 @@ public class CS_VR_LevelManager : MonoBehaviour {
 		return myFileName;
 	}
 
-	public void SetFileName () {
-		//				myFileName = myInputField_FileName.text;
+	public void SetFileName (string g_name) {
+		myFileName = g_name;
 		Debug.Log ("Now editing: " + myFileName);
 	}
 

@@ -53,6 +53,8 @@ public class CS_VR_Shelf_Object : MonoBehaviour {
 					CS_VR_LevelManager.Instance.GetParent (myPrefab.GetComponent<CS_AnyLevelObject> ().GetMyCategory ())
 				);
 
+			t_gameObject.name = myPrefab.name;
+
 			t_gameObject.GetComponent<CS_VR_Shelf_Object> ().enabled = false;
 			Destroy (t_gameObject.GetComponent<CS_VR_Shelf_Object> ());
 

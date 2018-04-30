@@ -12,6 +12,18 @@ namespace AnyBall {
 
 			public const string FILENAME_EXTENSION = ".json";
 
+			public static List<string> LoadFileNameList () {
+				DirectoryInfo t_dir = new DirectoryInfo (GetFolderPath ());
+				FileInfo[] t_info = t_dir.GetFiles("*.json");
+
+				List<string> t_fileNameList = new List<string> ();
+				foreach (FileInfo f_file in t_info) {
+					t_fileNameList.Add (Path.GetFileNameWithoutExtension (f_file.Name));
+				}
+
+				return t_fileNameList;
+			}
+
 			public static CS_AnyLevelSave_Level LoadFile (string g_fileName) {
 				
 				string t_filePath = GetFilePath (g_fileName);
@@ -56,6 +68,17 @@ namespace AnyBall {
 					File.Delete (t_filePath);
 			}
 
+			private static string GetFolderPath () {
+				string t_directoryPath = 
+					Application.dataPath + Path.DirectorySeparatorChar +
+					FOLDERNAME;
+
+				if (!Directory.Exists (t_directoryPath))
+					Directory.CreateDirectory (t_directoryPath);
+
+				return t_directoryPath;
+			}
+
 			private static string GetFilePath (string g_fileName) {
 				string t_directoryPath = 
 					Application.dataPath + Path.DirectorySeparatorChar +
@@ -71,9 +94,9 @@ namespace AnyBall {
 				CS_AnyLevelSave_Object t_saveObject = new CS_AnyLevelSave_Object ();
 				t_saveObject.prefabName = g_gameObject.GetComponent<CS_AnyLevelObject> ().GetMyPrefabName ();
 				t_saveObject.name = g_gameObject.name;
-				t_saveObject.position = new CS_AnyLevelSave_Vector3 (g_gameObject.transform.position);
+				t_saveObject.position = new CS_AnyLevelSave_Vector3 (g_gameObject.transform.localPosition);
 				t_saveObject.scale = new CS_AnyLevelSave_Vector3 (g_gameObject.transform.localScale);
-				t_saveObject.rotation = new CS_AnyLevelSave_Vector4 (g_gameObject.transform.rotation);
+				t_saveObject.rotation = new CS_AnyLevelSave_Vector4 (g_gameObject.transform.localRotation);
 
 				return t_saveObject;
 			}
