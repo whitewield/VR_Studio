@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
+
 namespace AnyBall {
 	namespace Editor {
 
@@ -68,10 +69,15 @@ namespace AnyBall {
 					File.Delete (t_filePath);
 			}
 
+			private static string GetDirectoryPath () {
+				if (Application.platform == RuntimePlatform.WindowsPlayer)
+					return Application.persistentDataPath + Path.DirectorySeparatorChar + FOLDERNAME;
+
+				return Application.dataPath + Path.DirectorySeparatorChar + FOLDERNAME;
+			}
+
 			private static string GetFolderPath () {
-				string t_directoryPath = 
-					Application.dataPath + Path.DirectorySeparatorChar +
-					FOLDERNAME;
+				string t_directoryPath = GetDirectoryPath ();
 
 				if (!Directory.Exists (t_directoryPath))
 					Directory.CreateDirectory (t_directoryPath);
@@ -80,9 +86,7 @@ namespace AnyBall {
 			}
 
 			private static string GetFilePath (string g_fileName) {
-				string t_directoryPath = 
-					Application.dataPath + Path.DirectorySeparatorChar +
-					FOLDERNAME;
+				string t_directoryPath = GetDirectoryPath ();
 
 				if (!Directory.Exists (t_directoryPath))
 					Directory.CreateDirectory (t_directoryPath);

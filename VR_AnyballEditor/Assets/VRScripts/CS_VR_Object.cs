@@ -32,6 +32,10 @@ public class CS_VR_Object : MonoBehaviour {
 		if (myRenderer == null)
 			myRenderer = this.GetComponent<Renderer> (); 
 		myDefaultMaterial = myRenderer.material;
+
+		myHoldingHand = null;
+		myScalingHand = null;
+		onScale = false;
 	}
 	// Use this for initialization
 	void Start () {
@@ -113,60 +117,91 @@ public class CS_VR_Object : MonoBehaviour {
 		if (CS_VR_Settings.Instance.GetSelectionMode () == CS_VR_Settings.SelectionMode.Scene)
 			return;
 
-		//mouse click or trigger
 		if (g_hand.GetStandardInteractionButtonDown ()) {
-			if (myHoldingHand == null) {
+			Click (g_hand, CS_VR_Settings.Instance.GetHandMode (g_hand));
+		}
 
-				//grab
+	}
 
-				Debug.Log ("player clicked on me!");
+	public void Click (Hand g_hand, CS_VR_Settings.HandMode g_mode = CS_VR_Settings.HandMode.Edit) {
+		switch (g_mode) {
+		case CS_VR_Settings.HandMode.Edit:
+			Click_Edit (g_hand);
+			break;
+		case CS_VR_Settings.HandMode.Copy:
+			Click_Copy (g_hand);
+			break;
+		case CS_VR_Settings.HandMode.Delete:
+			Delete ();
+			break;
+		default:
+			Click_Edit (g_hand);
+			break;
+		}
+	}
 
-				if (isUseSnapping)
-					myReference = CS_VR_ReferenceManager.Instance.GetIdleReference ();
+	private void Click_Edit (Hand g_hand) {
+		if (myHoldingHand == null) {
+			//grab
 
-				if (g_hand.currentAttachedObject != null) {
-					g_hand.DetachObject (g_hand.currentAttachedObject);
-				}
+			Debug.Log ("player clicked on me!");
 
-				Quaternion t_lastRotation = this.transform.rotation;
-				Vector3 t_lastPosition = this.transform.position;
+			if (isUseSnapping)
+				myReference = CS_VR_ReferenceManager.Instance.GetIdleReference ();
 
-				g_hand.AttachObject (this.gameObject);
+			if (g_hand.currentAttachedObject != null) {
+				g_hand.DetachObject (g_hand.currentAttachedObject);
+			}
 
-				this.transform.rotation = t_lastRotation;
-				this.transform.position = t_lastPosition;
+			Quaternion t_lastRotation = this.transform.rotation;
+			Vector3 t_lastPosition = this.transform.position;
 
-				myHoldingHand = g_hand;
+			g_hand.AttachObject (this.gameObject);
 
-				if (myAnyLevelObjectScript != null)
-					myAnyLevelObjectScript.enabled = false;
+			this.transform.rotation = t_lastRotation;
+			this.transform.position = t_lastPosition;
 
-				myHoldingHand.HoverLock (null);
+			myHoldingHand = g_hand;
 
-			} else {
-				//scale
+			if (myAnyLevelObjectScript != null)
+				myAnyLevelObjectScript.enabled = false;
 
-				if (myHoldingHand.otherHand != null &&
-					(myHoldingHand.otherHand.currentAttachedObject == null ||
-						myHoldingHand.otherHand.currentAttachedObject.GetComponent<CS_AnyLevelObject>() == null) &&
-					myHoldingHand.otherHand.GetStandardInteractionButtonDown ()) {
+			myHoldingHand.HoverLock (null);
 
-					myScalingHand = myHoldingHand.otherHand;
+		} else {
+			//scale
 
-					myRenderer.material = myDefaultMaterial;
+			if (myHoldingHand.otherHand != null &&
+				(myHoldingHand.otherHand.currentAttachedObject == null ||
+					myHoldingHand.otherHand.currentAttachedObject.GetComponent<CS_AnyLevelObject> () == null) &&
+				myHoldingHand.otherHand.GetStandardInteractionButtonDown ()) {
 
-					// create scaling
-					onScale = true;
-					Debug.Log ("true" + myScalingHand.currentAttachedObject);
+				myScalingHand = myHoldingHand.otherHand;
 
-					myScaling_InitHandDistance = CS_VR_Global.LocalVector3 (myScalingHand.transform.position - myHoldingHand.transform.position, this.transform);
+				myRenderer.material = myDefaultMaterial;
 
-					myScaling_Default = this.transform.localScale;
+				// create scaling
+				onScale = true;
+				Debug.Log ("true" + myScalingHand.currentAttachedObject);
 
-					myScalingHand.HoverLock (null);
-				}
+				myScaling_InitHandDistance = CS_VR_Global.LocalVector3 (myScalingHand.transform.position - myHoldingHand.transform.position, this.transform);
+
+				myScaling_Default = this.transform.localScale;
+
+				myScalingHand.HoverLock (null);
 			}
 		}
+	}
+
+	private void Click_Copy (Hand g_hand) {
+		myRenderer.material = myDefaultMaterial;
+		GameObject t_newCopy = 
+			Instantiate (this.gameObject, 
+				CS_VR_LevelManager.Instance.GetParent (
+					this.GetComponent<CS_AnyLevelObject> ().GetMyCategory ()
+				)
+			);
+		t_newCopy.GetComponent<CS_VR_Object> ().Click_Edit (g_hand);
 	}
 
 	void HandAttachedUpdate (Hand g_hand) {
@@ -207,8 +242,8 @@ public class CS_VR_Object : MonoBehaviour {
 		if (!isDestroyable)
 			return;
 
-		if (myHoldingHand == null)
-			return;
+//		if (myHoldingHand == null)
+//			return;
 
 		if (myReference != null)
 			myReference.SetActive (false);

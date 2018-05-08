@@ -6,6 +6,9 @@ using Valve.VR.InteractionSystem;
 
 public class CS_VR_Scene : MonoBehaviour {
 
+	private static CS_VR_Scene instance = null;
+	public static CS_VR_Scene Instance { get { return instance; } }
+
 	private Hand[] myAllHands;
 
 	// scene data
@@ -17,6 +20,21 @@ public class CS_VR_Scene : MonoBehaviour {
 	private Hand myOtherHand;
 	private float myHandDistance;
 
+	private Vector3 myDefaultPosition;
+	private Quaternion myDefaultRotation;
+	private Vector3 myDefaultScale;
+
+	void Awake () {
+		if (instance != null && instance != this) {
+			Destroy(this.gameObject);
+		} else {
+			instance = this;
+		}
+
+		myDefaultPosition = this.transform.localPosition;
+		myDefaultRotation = this.transform.localRotation;
+		myDefaultScale = this.transform.localScale;
+	}
 
 	void Start () {
 		myAllHands = FindObjectOfType<Player> ().GetComponentsInChildren<Hand> (true);
@@ -128,4 +146,9 @@ public class CS_VR_Scene : MonoBehaviour {
 
 	}
 
+	public void Reset () {
+		this.transform.localPosition = myDefaultPosition;
+		this.transform.localRotation = myDefaultRotation;
+		this.transform.localScale = myDefaultScale;
+	}
 }

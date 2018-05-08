@@ -67,7 +67,7 @@ public class CS_VR_Shelf_Object : MonoBehaviour {
 
 			t_gameObject.transform.position = this.transform.position;
 			t_gameObject.transform.rotation = this.transform.rotation;
-			t_gameObject.GetComponent<CS_VR_Object> ().HandHoverUpdate (g_hand);
+			t_gameObject.GetComponent<CS_VR_Object> ().Click (g_hand, CS_VR_Settings.HandMode.Edit);
 		}
 	}
 

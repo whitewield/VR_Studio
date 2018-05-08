@@ -4,6 +4,8 @@ using UnityEngine;
 
 using AnyBall.Editor;
 
+using Valve.VR.InteractionSystem;
+
 public class CS_VR_Settings : MonoBehaviour {
 
 	private static CS_VR_Settings instance = null;
@@ -34,6 +36,59 @@ public class CS_VR_Settings : MonoBehaviour {
 	[SerializeField] List<TextMesh> myLoad_TextList;
 	private int myLoad_PageIndex = 0;
 
+	//Hand
+	public enum HandMode {
+		Edit,
+		Copy,
+		Delete
+	}
+
+	[SerializeField] GameObject myHandModeDisplayPrefab;
+	const float myHandModeDisplay_Distance = 0.1f;
+
+	public Sprite myHandModeSprite_Edit;
+	public Sprite myHandModeSprite_Copy;
+	public Sprite myHandModeSprite_Delete;
+
+	public class HandInfo {
+		public Hand myHand;
+		public HandMode myMode;
+		public CS_VR_HandModeDisplay myModeDisplay;
+
+		public HandInfo (GameObject g_prefab, Hand g_hand) {
+			myHand = g_hand;
+			myMode = HandMode.Edit;
+			myModeDisplay = Instantiate (g_prefab).GetComponent<CS_VR_HandModeDisplay> ();
+		}
+
+		public void Update () {
+			Debug.Log (myModeDisplay);
+
+			myModeDisplay.transform.position = myHand.transform.position +
+			(Camera.main.transform.position -
+			myHand.transform.position).normalized *
+			myHandModeDisplay_Distance;
+			
+			myModeDisplay.transform.rotation = Camera.main.transform.rotation;
+		}
+
+		public void SetMode (HandMode g_newMode) {
+			myMode = g_newMode;
+			Sprite t_sprite = null;
+			switch (g_newMode) {
+			case HandMode.Copy:
+				t_sprite = CS_VR_Settings.Instance.myHandModeSprite_Copy;
+				break;
+			case HandMode.Delete:
+				t_sprite = CS_VR_Settings.Instance.myHandModeSprite_Delete;
+				break;
+			}
+			myModeDisplay.ChangeSprite (t_sprite);
+		}
+	}
+
+	private Dictionary<Hand, HandInfo> myHandModeDictionary = new Dictionary<Hand, HandInfo> ();
+
 	void Awake () {
 		if (instance != null && instance != this) {
 			Destroy(this.gameObject);
@@ -47,6 +102,15 @@ public class CS_VR_Settings : MonoBehaviour {
 
 		myLoad_NameList = CS_AnyLevelSave.LoadFileNameList ();
 		UpdateLoadNameDisplay ();
+
+		Hand[] t_allHands = FindObjectOfType<Player> ().GetComponentsInChildren<Hand> (true);
+		for (int i = 0; i < t_allHands.Length; i++) {
+			myHandModeDictionary.Add (t_allHands [i], new HandInfo (myHandModeDisplayPrefab, t_allHands [i]));
+		}
+	}
+
+	public void OnButtonReset () {
+		CS_VR_Scene.Instance.Reset ();
 	}
 
 	public void OnButtonSave () {
@@ -70,6 +134,10 @@ public class CS_VR_Settings : MonoBehaviour {
 			CS_VR_LevelManager.Instance.SetFileName (myLoad_NameList [f_nameIndex]);
 			myFileName_Text.text = CS_VR_LevelManager.Instance.OnButtonLoad ();
 		}
+	}
+
+	public void OnButtonHandMode (Hand g_hand, HandMode g_mode) {
+		myHandModeDictionary [g_hand].SetMode (g_mode);
 	}
 
 	public void OnButtonLoadPage (bool g_isRight) {
@@ -220,5 +288,13 @@ public class CS_VR_Settings : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.R)) {
 			UnityEngine.SceneManagement.SceneManager.LoadScene ("Game");
 		}
+
+		foreach (Hand f_Hand in myHandModeDictionary.Keys) {
+			myHandModeDictionary [f_Hand].Update ();
+		}
+	}
+
+	public HandMode GetHandMode (Hand g_hand) {
+		return myHandModeDictionary [g_hand].myMode;
 	}
 }
